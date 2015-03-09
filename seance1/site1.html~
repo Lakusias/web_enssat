@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Seance 1</title>
+		<link rel="stylesheet" type="text/css" href="site1.css">
+		
+	</head>
+	<body>
+		<div id="compteur">10</div>
+
+	</body>
+	<script type="text/javascript" src="site1.js"></script>
+</html>
+
+
+

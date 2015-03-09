@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+
+
+<title>Le laboratoire du petit scientifique</title>
+
+	<script src="./js/modernizr-2.0.6.js"></script>
+    <script src="./js/paillasseElem.js"></script>
+     <script src="./js/paillasseZone.js"></script>
+    <script src="./js/styles.js"></script>
+     <script src="./js/step.js"></script>
+    <script src="./js/scenarii.js"></script>  
+    <script src="./js/scenario.js"></script>  
+    <script src="./js/debuger.js"></script>  
+    <script src="./js/canvasApp.js"></script>  
+    <script src="./js/onglets.js"></script>
+
+<script type="text/javascript">
+
+window.addEventListener("load", windowLoadHandler, false);
+
+
+function windowLoadHandler() {
+	new canvasApp();
+}
+
+
+</script>
+
+</head>
+<body>
+<div id="container">
+	<div id="left-panel">
+		<h1>Le laboratoire du petit scientifique</h1>
+		<ul id="list_scen">
+		
+		</ul>
+	</div>
+	<canvas id="paillasse" width="1030" height="550">
+	Your browser does not support HTML5 canvas.
+	</canvas>
+	<div class="systeme_onglets">
+		<div class="onglets">
+			<span class="onglet_0 onglet" id="onglet_instructions" onclick="javascript:change_onglet('instructions');">Instructions</span>
+			<span class="onglet_0 onglet" id="onglet_glossaire" onclick="javascript:change_onglet('glossaire');">Glossaire</span>
+			<span class="onglet_0 onglet" id="onglet_objectif" onclick="javascript:change_onglet('objectif');">Objectif</span>
+		</div>
+		<div class="contenu_onglets">
+			<div class="contenu_onglet" id="contenu_onglet_instructions"></div>
+			<div class="contenu_onglet" id="contenu_onglet_glossaire"></div>
+			<div class="contenu_onglet" id="contenu_onglet_objectif"></div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">document.getElementById("contenu_onglet_instructions").onload=change_onglet(anc_onglet);</script>
+</html>
