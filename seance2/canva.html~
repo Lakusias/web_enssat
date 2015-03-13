@@ -2,13 +2,14 @@
 <html>
 	<head>
 		<title>Seance 2</title>
-		<link rel="stylesheet" type="text/css" href="site1.css">
+		<link rel="stylesheet" type="text/css" href="site2.css">
 	</head>
 	<body>
 		<button id="start">Start</button>
 		<button id="stop">Stop</button>
+		<canvas id=canvas">Load failed</canvas>
 	</body>
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="script2.js"></script>
 </html>
 
 

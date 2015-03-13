@@ -1,15 +1,23 @@
 var left = 0;
+var right = 0;
 var stop = false;
 var time = 0;
 var lastFrame=0;
 var shapes=[];
 var fin=false;
+var inverse=false;
+var nbcarre = 10;
 
 //mise en place des listener
 var bt = document.getElementById("start");
 bt.addEventListener("click",start,false);	//lancement
 bt = document.getElementById("stop");
 bt.addEventListener("click",arret,false);	//arret
+bt = document.getElementById("add");
+bt.addEventListener("click",add,false);		//ajout
+bt = document.getElementById("delete");
+bt.addEventListener("click",del,false);	//suppression
+
 
 makesquare();
 requestID = window.requestAnimationFrame(affichage);
@@ -18,7 +26,7 @@ requestID = window.requestAnimationFrame(affichage);
 function makesquare()
 {
 	//création des carré
-	for(j = 1; j<=10; j++)
+	for(j = 1; j<=nbcarre; j++)
 	{
 		var str = '<div class="carrerouge" id="carre"'+j+'"></div>'; 
 		var cr = document.createElement('div');	//on crée un div
@@ -35,14 +43,9 @@ function affichage(timestamp)
 	time++;
 	if(!stop)
 	{
-		for(var j=1; j<=10; j++)
+		for(var j=1; j<=nbcarre; j++)
 		{
 			movecarre(j);	//création de 10 carré
-		}
-		if(document.getElementById('carre10').style.left = window.screen.availWidth-100)
-		{
-			//relancer à la fin
-			inverse = true;
 		}
 	}
 	requestID = window.requestAnimationFrame(affichage);
@@ -51,17 +54,42 @@ function affichage(timestamp)
 function movecarre(index)
 {
 	var carre = document.getElementById('carre'+index);	//on sélectionne le carré
-	left = (carre.offsetLeft - carre.scrollLeft + carre.clientLeft);
-	if(left< window.screen.availWidth-100 && !stop)
+	if(carre != null)
 	{
+		if(!inverse)
+		{
+			left = (carre.offsetLeft - carre.scrollLeft + carre.clientLeft);
+			if(left< window.screen.availWidth-100 && !stop)
+			{
 		
-		//console.log('carre  '+ index + ' position ' + left);
-		left += 20/3*index;
-		carre.style.left = left +"px"; //on met à jour la position du carré
-	}
-	if(left > window.screen.availWidth-100)
-	{
-		carre.style.left =  window.screen.availWidth-100 +"px";	//mettre tout les carré à la même place
+				//console.log('carre  '+ index + ' position ' + left);
+				left += 20/3*index;
+				carre.style.left = left +"px"; //on met à jour la position du carré
+			}
+			if(left > window.screen.availWidth-100)
+			{
+				carre.style.left =  window.screen.availWidth-100 +"px";	//mettre tout les carré à la même place
+				if(index == 1) inverse = true;
+			}
+		}
+		else
+		{
+			//right = (carre.offsetRight - carre.scrollRight + carre.clientRight);
+			left = (carre.offsetLeft - carre.scrollLeft + carre.clientLeft);
+			right = window.screen.availWidth - left;
+			//console.log(right );
+			if(right > window.screen.availWidth-100 && !stop)
+			{
+				right += 20/3*index;
+				carre.style.left = window.screen.availWidth - left +"px"; //on met à jour la position du carré
+			}
+			if(right < window.screen.availWidth-100)
+			{
+				console.log(right);
+				carre.style.left =  window.screen.availWidth-100-left +"px";	//mettre tout les carré à la même place
+				if(index == nbcarre) inverse = false;
+			}
+		}
 	}
 }
 
@@ -78,4 +106,23 @@ function arret()
 function inverse()
 {
 	inverse = true;
+}
+
+function add()
+{
+	nbcarre++;
+	var str = '<div class="carrerouge" id="carre"'+nbcarre+'"></div>'; 
+	var cr = document.createElement('div');	//on crée un div
+	cr.setAttribute("id","carre"+nbcarre);		//on lui donne un identifiant
+	cr.setAttribute("class","carrerouge");	//on lui attribue sa classe de style
+	document.body.appendChild(cr);	//on l'ajoute dans le body
+	shapes.push(cr);
+}
+
+function del()
+{
+	nbcarre --;
+	var cr = document.getElementById("carre"+nbcarre);
+	document.body.removeChild(cr);
+	//requestID = window.requestAnimationFrame(affichage);
 }
