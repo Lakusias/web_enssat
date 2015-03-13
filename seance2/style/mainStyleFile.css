@@ -1,0 +1,53 @@
+@font-face { 
+  font-family: 'Village'; 
+  src: url('../fonts/Village.ttf'); 
+}
+
+body{
+	background-color: #389090;
+	font-family: 'Village', Georgia, serif;
+}
+
+nav{
+	float:left;
+}
+section{
+	
+}
+
+nav ul{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	width:140px;
+	//border: 1px solid black;
+	overflow:hidden;
+}
+
+nav ul li{
+	float:top;
+	margin : 5px;
+	padding : 5px;
+	width:120px;
+	//border: 1px solid black;
+}
+nav ul li a{
+	display:block;
+	background-color:#dddddd;
+	margin : 5px;
+	padding : 5px;
+	width:100px;
+	border-radius: 5px;
+	//border: 1px solid black;
+}
+
+.todo{
+	background-color:#dddddd;
+	border-radius: 5px;
+	border: 1px solid black;
+	margin : 5px;
+	padding : 5px;
+}
+.todo:before {
+   content: "Todo:  ";
+}

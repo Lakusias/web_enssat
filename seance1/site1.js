@@ -8,7 +8,6 @@ var timer = setInterval(write,const_time); //initialisation de l'intervalle
 var i = longueur;
 var j;
 
-
 //création des carré
 for(j = 1; j<=nbcarre; j++)
 {

@@ -1,0 +1,144 @@
+@import url("mainStyleFile.css");
+ 
+carousel{
+	position: relative;
+	top: 2em;
+	left: 1em;
+	height:600px;
+	width: 600px;
+}
+banner{
+	position: relative;
+	top: 2em;
+	left: 1em;
+	height:150px;
+	width: 600px;
+}
+
+#banner:hover img {
+
+webkit-transform: scale(.5);
+z-index:1;
+}
+
+#banner img:hover {
+
+webkit-transform: scale(1.25);
+z-index:2;
+}
+
+img.banner{
+	height:75px;
+	width:100px;
+	position: relative;
+	//float:left;
+	display: inline;
+	z-index:1;
+}
+
+
+img.carousel{ 
+	position: absolute;
+	height:150px;
+	width:200px;
+	top: 50%;
+	left: 50%;
+}
+
+
+img:hover{
+	//z-index:100;
+	-webkit-transform: scale(2);
+}
+
+#img_9{
+	z-index:1;
+	-webkit-transform: rotate(90deg) translate(300px) rotate(-90deg);
+}
+
+#img_8{
+	z-index:1;
+	-webkit-transform: rotate(80deg) translate(300px) rotate(-80deg);
+}
+#img_7{
+	z-index:1;
+	-webkit-transform: rotate(70deg) translate(300px) rotate(-70deg);
+}
+#img_6{
+	z-index:1;
+	-webkit-transform: rotate(60deg) translate(300px) rotate(-60deg);
+}
+#img_5{
+	z-index:1;
+	-webkit-transform: rotate(50deg) translate(300px) rotate(-50deg);
+}
+#img_4{
+	z-index:1;
+	-webkit-transform: rotate(40deg) translate(300px) rotate(-40deg);
+}
+#img_3{
+	z-index:1;
+	-webkit-transform: rotate(30deg) translate(300px) rotate(-30deg);
+}
+#img_2{
+	z-index:1;
+	-webkit-transform: rotate(20deg) translate(300px) rotate(-20deg);
+}
+#img_1{
+	z-index:1;
+	-webkit-transform: rotate(10deg) translate(300px) rotate(-10deg);
+}
+#img_0{
+	z-index:1;
+	-webkit-transform: translate(300px) ;
+}
+
+#img_9:hover{
+	-webkit-transform:  scale(1.2);
+	z-index:100;
+	
+}
+#img_8:hover{
+	-webkit-transform:  scale(1.2);
+	z-index:100;
+	
+}
+#img_7:hover{
+	-webkit-transform: scale(1.2);
+	z-index:100;
+	
+}
+#img_6:hover{
+	-webkit-transform:  scale(1.2);
+	z-index:100;
+	
+}
+#img_5:hover{
+	-webkit-transform:  scale(1.2);
+	z-index:100;
+	
+}
+#img_4:hover{
+	-webkit-transform:scale(1.2);
+	z-index:100;
+	
+}
+#img_3:hover{
+	-webkit-transform: scale(1.2);
+	z-index:100;
+	
+}
+#img_2:hover{
+	-webkit-transform:scale(1.2);
+	z-index:100;
+	
+}
+#img_1:hover{
+	-webkit-transform:  scale(1.2);
+	z-index:100;
+	
+}
+#img_0:hover{
+	-webkit-transform: scale(1.2);
+	z-index:100;
+}

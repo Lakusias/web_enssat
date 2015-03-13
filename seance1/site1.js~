@@ -24,7 +24,7 @@ j=1;
 function write(){
 	t++;
 	var cpt = document.getElementById('compteur');
-	cpt.innerHTML = int(t/100);
+	cpt.innerHTML = parseInt(t/100);
 	if(t>4000/const_time)
 	{
 		

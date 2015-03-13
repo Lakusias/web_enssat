@@ -1,0 +1,44 @@
+INSTALLATION (Win 95/98)
+
+Unzip the font file Village.ttf into a temporary folder on your hard disk.
+
+Go to RUN/SETTINGS/CONTROL PANEL/FONTS/FILE/INSTALL NEW FONTS
+
+Navigate to the directory where the font is sitting, select it, then click OK.
+
+Alternatively just unzip the font file directly into your windows\fonts folder. You might have to still have to go through the installation routine to kickstart it.
+
+The font should also be OK with Windows 3.1 - see your documentation for the routine to install it (it's been so long since I saw 3.1 I've forgotten the routine - let me know and I'll add the information here for everyone else).
+
+-------------------------------------------------------------------
+
+VillagePlain font by Mark F. Heiman <mheiman@carleton.edu>
+
+This font was designed to closely resemble that used in the cult TV classic "The Prisoner," created by and starring Patrick McGoohan. The letterforms are mostly based on the "Albertus" typeface, with a few exceptions:
+
+* The lowercase "e" has been replaced by an open, epsilon-style "e"
+* The dot has been removed from the lowercase "i" and "j"
+
+This release of the font contains nearly a complete character set, excluding only a few symbols found in some fonts.
+
+Any suggestions you may have for improving this font are welcome; this is the first public release, but I think it's fairly complete.  I'm sorry that the bitmaps are so rough -- I don't have any tools with which to edit them.
+
+There is no relationship between this font and the shareware "Furioso," except that both are based on "Albertus."
+
+This font is freeware. You may copy and distribute it to your heart's content with no obligation whatsoever.  I designed it for my own personal use with no intention of profit.  Just don't claim it as your own work and we'll all be happy.
+
+Special thanks to Ronald Clark for providing a scan of the button logo.
+
+Be seeing you.
+
+Mark F. Heiman - mheiman@carleton.edu
+
+There are several special characters beyond the standard set -- Character Map in Windows gives the following mappings:
+
+* ALT+0174 is the original closed lowercase "e"
+* ALT+0165 is the dotted lowercase "i"
+* ALT+0167 is the dotted lowercase "j"
+* ALT+0223 is the alternate capital "P" used in the main titles of the series
+* ALT+0163 is the alternate capital "G" used in "McGoohan"
+* ALT+0248 is the penny-farthing bicycle symbol used on Village buttons
+* ALT+0216 is the penny-farthing bicycle symbol used on signs and labels in the Village

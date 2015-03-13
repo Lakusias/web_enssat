@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="style/mainStyleFile.css">
+		<title>Le titre de ma page </title>
+	</head>
+<body>
+	<header>	
+	<p>L'animation d'éléments du DOM ou du contenu d'un canevas est un cas 
+	d'utilisation classique pour la fonction setInterval.
+	Mais l'interval n'est pas si fiable qu'on peut le penser et la nouvelle API 
+	AnimationFrame est plus adaptée...</p> 
+	</header>
+	<section>
+	<h2>L'animation avec SetInterval</h2>
+	<p>Pour faire se déplacer un élément de 400px sur la droite en javascript, 
+	l'idée première est de le déplacer de 10px à intervales réguliers (disons, 16ms): 
+	<pre>
+	var elem = document.getElementById("animatedElem");
+	var left = 0;
+	var timer;
+	// Move the element 10px on the right every 16ms
+	timer = setInterval(function() {
+		elem.style.left = ( left += 10 ) + "px";
+		// clear the timer at 400px to stop the animation
+		if ( left > 400 ) {
+			clearInterval( timer );
+		}
+	}, 16);
+	</pre></p>
+	<div class="todo">Réalisez une page où apparait un carré rouge se 
+	déplaçant vers la gauche selon la méthode présenté ci-dessus.
+	Vous introduirez une temporisation dans le calcul du déplacement avec un appel à la fonction:
+		<pre> 
+		function pausecomp(millis) 
+		{
+			var date = new Date();
+			var curDate = null;
+			do { 
+				curDate = new Date(); 
+			} while(curDate-date < millis);
+		} 
+		</pre>
+		Vous appelerez votre page <a href="./test_1.html">test_1.html</a> et la placerez dans le répertoire courant.
+	</div>
+	
+	<p>Un jeu en HTML5 utilisant cette méthode devrait tourner à 60 trames par secondes.
+	Sauf si les animations sont trop complexes ou sont effectués sur un navigateur/OS 
+	peu efficace (un téléphone portable?). Dans ce cas, traiter 
+	une trame peut prendre plus de 16ms: le jeu tournerai alors à moins de 60 trames par secondes.
+	Par exemple, lorsque traiter une trame prend 33ms, le jeu tourne à 30 trames par secondes, c'est à dire que les éléments du jeu se déplacent deux fois plus lentement.
+	L'animation est toujours fluide mais le rendu utilisateur est dégradé.</p>
+	</section>
+	
+	<section>
+	<h2>Animer à vitesse constante</h2>
+	<p>Pour faire une animation à vitesse constante, nous devons calculer 
+	le temps qui s'est écoulé depuis l'affichage de la dernière trame 
+	et bouger l'élément proportionnellement à cette grandeur.</p>
+	<div class="todo">
+	Modifiez le code que vous avez réalisé en fonction de l'indication précédente.
+	Vous appelerez votre page <a href="./test_2.html">test_2.html</a> et la placerez dans le répertoire courant.
+	</div>	
+	</section>
+	
+	<section>
+	<h2>Animer avec requestAnimationFrame</h2>
+	<p>On a donc démontreé l'inutilité de l'interval pour des animations complexe.
+	En effet, il n'y a aucune garantie que le rendu se fasse à temps.
+	Un enouvelle API a été créée pour respecter les délais de rendu: 
+	<a href="https://developer.mozilla.org/fr/docs/Web/API/window.requestAnimationFrame">requestAnimationFrame</a>
+	C'est une manière simple, pour dire au navigateur: "avant d'afficher la prochaine trame, exécute cette partie métier".
+	C'est au navigateur de choisir le moment le plus opportun pour exécuter cette partie de code (ce qui s'accompagne d'une meilleur utilisation des ressources).
+	</p>	
+	
+	<p>
+	<div class="todo">
+	Proposez un nouveau code pour l'animation précédente avec requestAnimationFrame.
+	Vous appelerez votre page <a href="./test_3.html">test_3.html</a> et la placerez dans le répertoire courant.
+	</div>
+	</p>
+	
+	<p>
+	requestAnimationFrame a été construite avec un autre bénéfice en tête.
+	Laisser le choix du meilleur intervalle de temps au navigateur permet en effet d'avoir de longs intervalles pour les onglets inactifs.
+	Le résultat est le suivant: Si l'utilisateur joue à un jeu très gourmand en CPU, qu'il ouvre un nouvel onglet (ou minimise celui de son jeu) et alors son jeu sera mis en pause, afin d'allouer les ressources aux autres tâches. 
+	</p>
+	
+	<p>
+	Une conséquence négative de cela est que, si l'onglet du jeu est laissé longtemps inactif, l'intervalle de temps entre deux trame peu être très grand, ce qui se traduit par un "saut" dans l'animation (ou "wormholes").
+	Ces "wormholes" peuvent être contournés en plafonnant l'intervalle d'inactivité par une valeur :
+	<pre> 
+	requestAnimationFrame( loop, element );
+    var deltaT = now - lastFrame;
+    // do not render frame when deltaT is too high
+    if ( deltaT < 160 ) {
+                running = render( deltaT );
+    }
+    </pre>
+    
+	</p>
+	<div class="todo">
+	Proposez un nouveau code intégrant la modification proposée.
+	Vous appelerez votre page <a href="./test_4.html">test_4.html</a> et la placerez dans le répertoire courant.
+	</div>
+	</section>
+
+	<section>
+	<h2>Et si je veux réduire le frame rate?</h2>
+	<p>L'idée, là c'est de placer l'appel à requestAnimationFrame dans le corps de la fonction anonyme passée à un setTimeOut.</p>
+	<div class="todo">
+	Proposez un nouveau code intégrant la modification proposée. Faites varier le fps de 10 à 80. Qu'observez vous?
+	Vous appelerez votre page <a href="./test_5.html">test_5.html</a> et la placerez dans le répertoire courant.
+	</div>
+	</section>
+	
+	<section>
+	<h2>Un jeu, un jeu!</h2>
+	<p>HTML5 est en passe de surpasser Flash pour la cration de jeu en ligne.
+	Cela dit, écrire une boucle de Jeu en Javascript ne s'invente pas.</p>
+	
+	<p>On peut trier la plupart des jeux dans deux catégories: 
+	celle des jeux où on attend une entrée de l'utilisateur (click, touche, ...) 
+	pour faire déclencher un raffraichissement...et celle des jeux d'action (comme un fps) 
+	où il est nécessaire de raffraichir en permanence pour animer des éléments qui se déplacent et 
+	réagissent à l'action du joueur. C'est cette dernière catégorie qui nous intéresse.
+	Les jeux de cette catégories reposent sur "boucle de jeu" qu'on peut résumer ainsi:      
+	<pre>
+	 while ( true ) {
+        updateGame();
+        drawGame();
+     }
+	</pre>
+	</p>
+	<p>Comme nous l'avons vu dans les exercices précédents, pour ne pas bloquer l'exécution, 
+	on doit remplacer le while par une évaluation à intervalles. Un peu comme cela:
+	<pre>
+	var ONE_FRAME_TIME = 1000 / 60 ;
+	var mainloop = function() {
+        updateGame();
+        drawGame();
+    };
+    setInterval( mainloop, ONE_FRAME_TIME );
+	</pre>
+	Mais, ce n'est pas efficace. On préfère utiliser notre requestAnimationFrame:
+	<pre>
+	 var mainloop = function() {
+        updateGame();
+        drawGame();
+    };
+    var animFrame = window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            window.oRequestAnimationFrame      ||
+            window.msRequestAnimationFrame     ||
+            null ;
+    animeFrame( mainloop );
+	</pre>
+	Ha, mais là, il y a un problème: ce n'est appelé qu'une fois! Réparons cela:
+	<pre>
+	var mainloop = function() {
+        updateGame();
+        drawGame();
+    };
+
+    var animFrame = window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            window.oRequestAnimationFrame      ||
+            window.msRequestAnimationFrame     ||
+            null ;
+
+    var recursiveAnim = function() {
+        mainloop();
+        animFrame( recursiveAnim );
+    };
+
+    // start the mainloop
+    animFrame( recursiveAnim );
+	</pre>
+	Beaucoup mieux!
+	</p>
+	<p>
+		Le jeu que vous aller créer est super simple: vous allez animer un sprite ("encore?!").
+		Pour cela, vous allez manipuler un canevas, et en particulier son contexte 2D sur lequel vous allez dessiner un sprite d'<a href="images//coin-sprite-animation.png">image</a> puis l'effacer. 
+		Vous vous aiderez de ce <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Using_images">lien</a> pour les fonctions du Canevas.  
+	    Vous appelerez votre page <a href="./test_6.html">test_6.html</a> et la placerez dans le répertoire courant.
+	</p>
+	
+	</section>
+	
+	
+	
+</body>
+
+</html>
+
+
+
+
