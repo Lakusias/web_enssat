@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Events </title>
+    </head>
+    <body>
+    <HEADER>
+		
+	</HEADER>
+	<SECTION style="width: 500px;">
+       <p>Les objets tels que les bouttons, les boîtes de texte, les images, ont des événements comme "OnClick" qui leur sont attachés. Cependant, l'élément Canvas n'en a pas.
+Cependant, on peut  attacher à l'élément ses propres événements grâce à à la méthode Javascript <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">addEventListener</a> de tout objet du DOM. Voici sa syntaxe:
+           <pre>addEventListener( event_type, event_handler, capture )</pre>
+        </p>   
+        <p> L'argument <b>event_type</b> est le type d'événement que vous désirez:<b>click</b>, <b>mouseover</b>, <b>keypress</b> et bien <a href="https://developer.mozilla.org/en-US/docs/Web/Events">plus</a>.
+            <b>event_handler</b> est le nom d'une fonction qui servira de <i>callback</i>.L'argument <b>capture</b> est un booléen optionel dont la valeur par défaut est <i>false</i> qui signifie que vous ne voulez pas caturer d'autres événements. 
+        </p>
+        <p>Ainsi, si vous voulez que l'événement soit capturé au niveau de la fenêtre, vous aurez: 
+            <pre>window.addEventListener("keypress", doKeyDown, false)</pre>.
+        Si vous voulez que cet événement ne soit récupéré qu'au niveau du canvas, vous aurez plutôt: 
+            <pre>
+            var canvas = document.getElementById("canvas_1");
+            canvas.addEventListener("keydown", doKeyDown, true);
+            </pre>
+        </p>
+    <p>Maintenant, que faire dans la <i>callback</i>? Pour les événements du clavier, c'est assez <a href="http://unixpapa.com/js/key.html">compliqué</a> si l'on veut récupéré des caractères spéciaux. Peut-être faut-il mieux passer par l'API jQuery, comme le recommande <a href="http://www.html5rocks.com/en/tutorials/canvas/notearsgame/">HTML5Rocks</a>. L'autre solution serait de se tenir à la solution présentée en-dessous:
+    
+        </p>    
+    
+    
+		<CANVAS WIDTH="500" HEIGHT="400" ID="canvas_1" tabindex="0" style="border-style: solid; border-width: 2px; width: 500px;">
+			Canvas tag not supported
+		</CANVAS>
+    <p>
+    On déplace le rectangle avec les touches de flêches. Vous ne trouvez pas que quelque chose cloche? Oui: les flêches permettent aussi de se déplacer dans la fenêtre... Il faudrait désactiver le comportement pas défaut de ces touches:
+        <pre>e.preventDefault();</pre>
+    </p>
+    </Section>
+    <section>
+    <P>
+    Bon, maintenant, comment intégrer cela dans notre boucle de jeu? En effet, les événements déclenchés par l'utilisateur et ceux déclenchés par la boucle de jeu sont en asynchronisme. Par conséquent, il faut stocker l'événement utilisateur dans une structure (un tableau fera l'affaire) qui sera consultée au cours de la boucle de jeu.
+    </P>
+    <P style="border-style: solid; border-width: 2px; width: 500px;padding:5px;">Modifiez le code précédent pour introduire une boucle de jeu. Pour l'animation, vous pourrez par exemple faire se déplacer le personnage de la feuille de sprite attachée (cf TP précédent). Attention les flêches doivent donner les direction du personnage!</P>
+      </section> 
+    
+<section>
+<p>Qu'en est il des événements souris? C'est plus simple. A partir de canvas, on peut détecter les événements <b>mousedown</b>, <b>mouseup</b>, <b>mousemove</b>, <b>mouseou</b> et <b>mouseover</b>. Par exemple, on peut prendre le code suivant:
+    <pre>
+    document.getElementById("canvas_2").addEventListener("mousedown", doMouseDown,false);
+    function doMouseDown(event){
+        alert("X="+event.clientX);
+    }
+    </pre>
+    Pour savoir exactement à quoi se rapporte la propriété clientX, regardez <a href="http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/">Ici</a>. 
+    </p>
+ <P style="border-style: solid; border-width: 2px; width: 500px;padding:5px;">
+     Modifiez le jeu précédent pour en faire un jeu de <i>point-and-click</i> rudimentaire. Clickez sur un endroit dans le canvas : le personnage doit s'y rendre. Comme le sprite est trop simple, vous ne pourrez pas vous déplacer en diagonale... dans ce cas simplifiez le jeu sur une dimension!
+</P>
+
+</section>
+    
+    
+    
+    </body>
+    <script>
+        // Attention, cette implémentation utilise keyCode, dépréciée: utiliser pluôt la propriété key de l'objet keyboardEvent. 
+        //https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key...
+        //mais l'alternative proposée par MDN n'est pas reconnue par tous les navigateurs.
+		var canvas = document.getElementById("canvas_1");
+		canvas.addEventListener('keydown', doKeyDown, true);
+
+		canvas_context = canvas.getContext("2d");
+		canvas_context.fillRect(100, 100, 50, 30);
+
+		var x = 100;
+		var y = 100;
+
+		function doKeyDown(e){ 
+             //e.preventDefault();
+
+			//====================
+			//	THE down-arrow KEY
+			//====================
+			if (e.keyCode == 40) {
+				clearCanvas();
+				y = y + 10;
+				canvas_context.fillRect(x, y, 50, 30);
+			}
+
+			//====================
+			//	THE up-arrow KEY
+			//====================
+			if (e.keyCode == 38) {
+				clearCanvas();
+				y = y - 10;
+				canvas_context.fillRect(x, y, 50, 30);
+			}
+
+			//====================
+			//	THE left-arrow KEY
+			//====================
+			if (e.keyCode == 37) {
+				clearCanvas();
+				x = x - 10;
+				canvas_context.fillRect(x, y, 50, 30);
+			}
+
+			//====================
+			//	THE right-arrow KEY
+			//====================
+			if (e.keyCode == 39) {
+				clearCanvas();
+				x = x + 10;
+				canvas_context.fillRect(x, y, 50, 30);
+    
+            }
+            
+            //Space is 32, Enter is 13, Tab is 9, esc is 27, backspace is 8... 
+            // A to Z is 65 to 90
+
+		}
+
+		function clearCanvas() {
+			canvas.width = canvas.width;
+		}
+    
+    </script>
+</html>    
+    

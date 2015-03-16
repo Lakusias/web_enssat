@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Events </title>
+    </head>
+    <body>
+    </body>
+<script>
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Should do nothing if the key event was already consumed.
+  }
+
+  switch (event.key) {
+    case "ArrowDown":
+      // Do something for "down arrow" key press.
+          alert("ArrowDown");
+      break;
+    case "ArrowUp":
+      // Do something for "up arrow" key press.
+      break;
+    case "ArrowLeft":
+      // Do something for "left arrow" key press.
+      break;
+    case "ArrowRight":
+      // Do something for "right arrow" key press.
+      break;
+    case "Enter":
+      // Do something for "enter" or "return" key press.
+      break;
+    case "Escape":
+      // Do something for "esc" key press.
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Consume the event for suppressing "double action".
+  event.preventDefault();
+}, true);
+    </script>
