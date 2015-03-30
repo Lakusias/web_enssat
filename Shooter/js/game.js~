@@ -465,7 +465,7 @@ function mainloop () {
                 		//drawScore();
                 		//player.init();
 					    //enemies.init();
-                		init();
+                		                		init();
                 		conScore.drawImage(this.imgLive,this.imgLiveWidth, 0, this.imgLiveWidth,this.imgLiveHeight, 10, 10 ,this.width,this.height);
                 	}
                 	stop = false;
