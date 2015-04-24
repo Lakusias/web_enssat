@@ -208,7 +208,32 @@ function Enemy(x,y,speed){
     this.imgExplosionHeight = 128;
     this.imgExplosionWidth = 128;
     this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
-
+    
+    this.taboffscreenCanvasExp = new Array();
+    for(var j=0;j<5;j++)
+    {
+	    this.offscreenCanvasExp = document.createElement("canvas");
+		this.offscreenCanvasExp.width = this.imgExplosionWidth;
+		this.offscreenCanvasExp.height = this.imgExplosionHeight;
+		this.offscreenContextExp = this.offscreenCanvasExp.getContext("2d");
+		this.offscreenContextExp.drawImage(this.imgExplosion,j*this.imgExplosionWidth+1,0,this.imgExplosionWidth,this.imgExplosionHeight,0,0,this.width, this.height);
+		this.taboffscreenCanvasExp.push(this.offscreenCanvasExp);
+	}
+		
+    
+    
+    this.taboffscreenCanvas = new Array();
+    for(var j=0;j<6;j++)
+    {
+	    this.offscreenCanvas = document.createElement("canvas");
+		this.offscreenCanvas.width = this.width;
+		this.offscreenCanvas.height = this.height;
+		this.offscreenContext = this.offscreenCanvas.getContext("2d");
+		this.offscreenContext.drawImage(this.img,0,j*this.height+1,this.width,this.height,0,0,this.width,this.height);
+		this.taboffscreenCanvas.push(this.offscreenCanvas);
+	}
+		
+		
     this.projectileSet = new ProjectileSet();
     this.explodes = function(){
         this.cptExplosion = 1;
@@ -237,9 +262,11 @@ function Enemy(x,y,speed){
         this.projectileSet.draw();
 
         if(this.cptExplosion!=0){
-                conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
+                //conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
+                conArena.drawImage(this.taboffscreenCanvasExp[this.cptExplosion],this.x,this.y);
         }else{
-            conArena.drawImage(this.img,  0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
+            //conArena.drawImage(this.img,  0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
+            conArena.drawImage(this.taboffscreenCanvas[this.cpt],this.x,this.y);
         }
     };
     this.clear = function(){
@@ -282,13 +309,38 @@ var player = {
     init : function(){
         this.img = new Image();
         this.img.src = "./assets/Ship/Spritesheet_64x29.png";
+        this.spriteHeight = 16;
         this.cpt = 0;
         this.cptExplosion =  0;//10 images
         this.imgExplosion = new Image();
         this.imgExplosionHeight = 128;
         this.imgExplosionWidth = 128;
         this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
+        
+        
+		this.taboffscreenCanvasExp = new Array();
+		for(var j=0;j<10;j++)
+		{
+			this.offscreenCanvasExp = document.createElement("canvas");
+			this.offscreenCanvasExp.width = this.width;
+			this.offscreenCanvasExp.height = this.height;
+			this.offscreenContextExp = this.offscreenCanvasExp.getContext("2d");
+			this.offscreenContextExp.drawImage(this.imgExplosion,j*this.imgExplosionWidth+1,0,this.imgExplosionWidth,this.imgExplosionHeight,0,0,this.width, this.height);
+			this.taboffscreenCanvasExp.push(this.offscreenCanvasExp);
+		}
+		
+        this.taboffscreenCanvas = new Array();
         this.projectileSet = new ProjectileSet();
+        
+        for(var j=0;j<4;j++)
+        {
+		    this.offscreenCanvas = document.createElement("canvas");
+			this.offscreenCanvas.width = this.width;
+			this.offscreenCanvas.height = this.height;
+			this.offscreenContext = this.offscreenCanvas.getContext("2d");
+			this.offscreenContext.drawImage(this.img,0,j*this.height+1,this.width,this.height,0,0,this.width,this.height);
+			this.taboffscreenCanvas.push(this.offscreenCanvas);
+		}
     },
     x : 20,
     ySpeed : 10,
@@ -353,11 +405,14 @@ var player = {
     draw : function(){
         if(this.timeToBeAlive == 0) {
 
-            conArena.drawImage(this.img, 0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
-        }else{
+            //conArena.drawImage(this.img, 0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
+            conArena.drawImage(this.taboffscreenCanvas[this.cpt], this.x,this.y);
+        }else
+        {
             //exploding
             if(this.cptExplosion!=0){
-                conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
+                //conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
+                conArena.drawImage(this.taboffscreenCanvasExp[this.cptExplosion],this.x,this.y);
                if(tics % 3 == 1) {this.cptExplosion++;}
                 if(this.cptExplosion>10) this.cptExplosion=0;
             }
@@ -465,7 +520,7 @@ function mainloop () {
                 		//drawScore();
                 		//player.init();
 					    //enemies.init();
-                		                		init();
+                		init();
                 		conScore.drawImage(this.imgLive,this.imgLiveWidth, 0, this.imgLiveWidth,this.imgLiveHeight, 10, 10 ,this.width,this.height);
                 	}
                 	stop = false;
