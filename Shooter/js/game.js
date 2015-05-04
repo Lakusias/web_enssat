@@ -285,7 +285,7 @@ function Enemy(x,y,speed){
             if(imgExpReadyEnemy)
             {
                 //conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
-                conArena.drawImage(taboffscreenCanvasExpEnemy[this.cptExplosion],this.x,this.y);
+               // conArena.drawImage(taboffscreenCanvasExpEnemy[this.cptExplosion],this.x,this.y);
             }
             
         }else{

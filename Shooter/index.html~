@@ -3,10 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Jeu Type</title>
-        <script src="./js/game2.js"></script>
+        <script src="./js/game3.js"></script>
         <link rel="stylesheet" type="text/css" href="./style/game.css">
     </head>
     <body>
-		<div id="arena"></div>
+		<script>
+		    init("arena");
+		</script>
     </body>
 </html>

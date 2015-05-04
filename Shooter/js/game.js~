@@ -291,7 +291,7 @@ function Enemy(x,y,speed){
         }else{
             //conArena.drawImage(this.img,  0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
             if(imgReadyEnemy) {
-                conArena.drawImage(taboffscreenCanvasEnemy[this.cpt],this.x,this.y);
+               // conArena.drawImage(taboffscreenCanvasEnemy[this.cpt],this.x,this.y);
             }
         }
     };
@@ -319,7 +319,7 @@ function Enemy(x,y,speed){
             if(tics % 3 == 1) {
                 this.cptExplosion++;
             }
-            if(this.cptExplosion>10){//end of animation
+            if(this.cptExplosion>=11){//end of animation
                 this.cptExplosion=0;
                 this.exists = false;
             }
