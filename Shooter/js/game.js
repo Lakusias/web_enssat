@@ -190,6 +190,56 @@ var enemies = {
     }
     
 };
+
+var imgReadyEnemy = false;
+var imgExpReadyEnemy = false;
+var imgEnnemyHeight = 30;
+var imgEnnemyWidth = 40;
+var imgExplosionHeight = 128;
+var imgExplosionWidth = 128;
+
+enemyImg = new Image();
+enemyImg.src = "./assets/Enemy/eSpritesheet_40x30.png";
+var taboffscreenCanvasEnemy = new Array();
+
+enemyImg.onload = function() {
+    imgReadyEnemy=true;
+    for(var j=0;j<6;j++)
+    {
+        var tmpoffscreenCanvas = document.createElement("canvas");
+        tmpoffscreenCanvas.width = imgEnnemyHeight;
+        tmpoffscreenCanvas.height = imgEnnemyWidth;
+        var tmpoffscreenContext = tmpoffscreenCanvas.getContext("2d");
+        
+		tmpoffscreenContext.drawImage(enemyImg,0,j*imgEnnemyHeight+1,imgEnnemyWidth,imgEnnemyHeight,0,0,imgEnnemyWidth,imgEnnemyHeight);
+        taboffscreenCanvasEnemy.push(tmpoffscreenCanvas);
+    }
+}
+
+
+var imgExplosion = new Image();
+var imgExplosionHeight = 128;
+var imgExplosionWidth = 128;
+imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
+
+var taboffscreenCanvasExpEnemy = new Array();
+this.imgExplosion.onload = function(){ 
+    imgExpReadyEnemy = true;
+    for(var j=0;j<=11;j++)
+    {
+        var offscreenCanvasExp = document.createElement("canvas");
+	    offscreenCanvasExp.width = imgExplosionWidth;
+	    offscreenCanvasExp.height = imgExplosionHeight;
+	    var offscreenContextExp = offscreenCanvasExp.getContext("2d");
+	
+        offscreenContextExp.drawImage(imgExplosion,j*imgExplosionWidth+1,0,imgExplosionWidth,imgExplosionHeight,0,0,imgExplosionWidth, imgExplosionHeight);
+	    taboffscreenCanvasExpEnemy.push(offscreenCanvasExp);
+    }
+    
+
+}
+
+	
 //test
 function Enemy(x,y,speed){
     this.x = x;
@@ -199,41 +249,12 @@ function Enemy(x,y,speed){
     this.exists = true;
     this.height = 30;
     this.width = 40;
-    this.img = new Image();
-    this.img.src = "./assets/Enemy/eSpritesheet_40x30.png";
+    
     this.cpt = 0;
 
     this.cptExplosion =  0;//10 images
-    this.imgExplosion = new Image();
-    this.imgExplosionHeight = 128;
-    this.imgExplosionWidth = 128;
-    this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
-    
-    this.taboffscreenCanvasExp = new Array();
-    for(var j=0;j<10;j++)
-    {
-	    this.offscreenCanvasExp = document.createElement("canvas");
-		this.offscreenCanvasExp.width = this.imgExplosionWidth;
-		this.offscreenCanvasExp.height = this.imgExplosionHeight;
-		this.offscreenContextExp = this.offscreenCanvasExp.getContext("2d");
-		this.offscreenContextExp.drawImage(this.imgExplosion,j*this.imgExplosionWidth+1,0,this.imgExplosionWidth,this.imgExplosionHeight,0,0,this.width, this.height);
-		this.taboffscreenCanvasExp.push(this.offscreenCanvasExp);
-	}
 		
-    
-    
-    this.taboffscreenCanvas = new Array();
-    for(var j=0;j<6;j++)
-    {
-	    this.offscreenCanvas = document.createElement("canvas");
-		this.offscreenCanvas.width = this.width;
-		this.offscreenCanvas.height = this.height;
-		this.offscreenContext = this.offscreenCanvas.getContext("2d");
-		this.offscreenContext.drawImage(this.img,0,j*this.height+1,this.width,this.height,0,0,this.width,this.height);
-		this.taboffscreenCanvas.push(this.offscreenCanvas);
-	}
-		
-		
+    	
     this.projectileSet = new ProjectileSet();
     this.explodes = function(){
         this.cptExplosion = 1;
@@ -260,13 +281,18 @@ function Enemy(x,y,speed){
     this.draw = function(){ 
 
         this.projectileSet.draw();
-
         if(this.cptExplosion!=0){
+            if(imgExpReadyEnemy)
+            {
                 //conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
-                conArena.drawImage(this.taboffscreenCanvasExp[this.cptExplosion],this.x,this.y);
+                conArena.drawImage(taboffscreenCanvasExpEnemy[this.cptExplosion],this.x,this.y);
+            }
+            
         }else{
             //conArena.drawImage(this.img,  0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
-            conArena.drawImage(this.taboffscreenCanvas[this.cpt],this.x,this.y);
+            if(imgReadyEnemy) {
+                conArena.drawImage(taboffscreenCanvasEnemy[this.cpt],this.x,this.y);
+            }
         }
     };
     this.clear = function(){
@@ -293,7 +319,7 @@ function Enemy(x,y,speed){
             if(tics % 3 == 1) {
                 this.cptExplosion++;
             }
-            if(this.cptExplosion>10){//end of animation
+            if(this.cptExplosion>=11){//end of animation
                 this.cptExplosion=0;
                 this.exists = false;
             }
@@ -303,6 +329,8 @@ function Enemy(x,y,speed){
 }
 /////////////////////////////////
 
+var taboffscreenCanvasExpPlayer = new Array();
+var taboffscreenCanvasPlayer = new Array();
 /////////////////////////////////
 // Hero Player
 var player = {
@@ -317,29 +345,36 @@ var player = {
         this.imgExplosionWidth = 128;
         this.imgExplosion.src = "./assets/Explosion/explosionSpritesheet_1280x128.png";
         
+        this.imgReady=false;
+        this.imgExpReady=false;
         
-		this.taboffscreenCanvasExp = new Array();
-		for(var j=0;j<10;j++)
-		{
-			this.offscreenCanvasExp = document.createElement("canvas");
-			this.offscreenCanvasExp.width = this.width;
-			this.offscreenCanvasExp.height = this.height;
-			this.offscreenContextExp = this.offscreenCanvasExp.getContext("2d");
-			this.offscreenContextExp.drawImage(this.imgExplosion,j*this.imgExplosionWidth+1,0,this.imgExplosionWidth,this.imgExplosionHeight,0,0,this.width, this.height);
-			this.taboffscreenCanvasExp.push(this.offscreenCanvasExp);
+		this.imgExplosion.onload = function() {
+		    player.imgExpReady=true;
+		    for(var j=0;j<=10;j++)
+		    {
+			    player.offscreenCanvasExp = document.createElement("canvas");
+			    player.offscreenCanvasExp.width = player.width;
+			    player.offscreenCanvasExp.height = player.height;
+			    player.offscreenContextExp = player.offscreenCanvasExp.getContext("2d");
+			
+			    player.offscreenContextExp.drawImage(player.imgExplosion,j*player.imgExplosionWidth+1,0,player.imgExplosionWidth,player.imgExplosionHeight,0,0,player.width, player.height);
+			    taboffscreenCanvasExpPlayer.push(player.offscreenCanvasExp);
+		    }
 		}
-		
-        this.taboffscreenCanvas = new Array();
-        this.projectileSet = new ProjectileSet();
         
-        for(var j=0;j<4;j++)
-        {
-		    this.offscreenCanvas = document.createElement("canvas");
-			this.offscreenCanvas.width = this.width;
-			this.offscreenCanvas.height = this.height;
-			this.offscreenContext = this.offscreenCanvas.getContext("2d");
-			this.offscreenContext.drawImage(this.img,0,j*this.height+1,this.width,this.height,0,0,this.width,this.height);
-			this.taboffscreenCanvas.push(this.offscreenCanvas);
+        this.projectileSet = new ProjectileSet();
+        this.img.onload = function() {
+            player.imgReady=true;
+            for(var j=0;j<4;j++)
+            {
+		        var offscreenCanvas = document.createElement("canvas");
+			    offscreenCanvas.width = player.width;
+			    offscreenCanvas.height = player.height;
+			    var offscreenContext = offscreenCanvas.getContext("2d");
+			
+		        offscreenContext.drawImage(player.img,0,j*player.height+1,player.width,player.height,0,0,player.width,player.height);
+			    taboffscreenCanvasPlayer.push(offscreenCanvas);
+		    }
 		}
     },
     x : 20,
@@ -406,15 +441,23 @@ var player = {
         if(this.timeToBeAlive == 0) {
 
             //conArena.drawImage(this.img, 0,this.cpt*this.height,this.width,this.height, this.x,this.y,this.width,this.height);
-            conArena.drawImage(this.taboffscreenCanvas[this.cpt], this.x,this.y);
+            if(this.imgReady)
+            {
+                var tmpCanvas = taboffscreenCanvasPlayer[this.cpt];
+                conArena.drawImage(tmpCanvas, this.x,this.y);
+            }
         }else
         {
             //exploding
             if(this.cptExplosion!=0){
+            
                 //conArena.drawImage(this.imgExplosion, this.cptExplosion*this.imgExplosionWidth, 0, this.imgExplosionWidth,this.imgExplosionHeight, this.x,this.y,this.width,this.height);
-                conArena.drawImage(this.taboffscreenCanvasExp[this.cptExplosion],this.x,this.y);
-               if(tics % 3 == 1) {this.cptExplosion++;}
-                if(this.cptExplosion>10) this.cptExplosion=0;
+                if(this.imgExpReady)
+                {
+                    conArena.drawImage(taboffscreenCanvasExpPlayer[this.cptExplosion],this.x,this.y);
+                   if(tics % 3 == 1) {this.cptExplosion++;}
+                    if(this.cptExplosion>=10) this.cptExplosion=0;
+                }
             }
         }
         this.projectileSet.draw();
