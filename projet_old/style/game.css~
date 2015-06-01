@@ -1,0 +1,21 @@
+#canva {
+    
+    position:absolute;
+    left:0px;
+    top:0px;
+    border-style: solid;
+    border-width: 2px;
+    background: url(../assets/tex_Water.jpg);
+    z-index: 1;
+}
+
+
+#canScore {
+
+    position:absolute;
+    left:0px;
+    top:0px;
+    border-style: solid;
+    border-width: 2px;
+    z-index: 3;
+}

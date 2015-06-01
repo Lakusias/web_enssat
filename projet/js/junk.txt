@@ -1,0 +1,53 @@
+	/*if(player.idle)
+	{
+		conGame.drawImage(this.tabOffScreenCanvas[(this.orientation+1)*this.xlength -2],x,y-this.height/2);
+	}
+	else
+	{
+		if(this.cpt < this.xlength)
+		{
+			this.cpt = 0;
+		}
+		switch(player.anim.orientation)
+		{
+			case 0:
+				if(player.y > player.ySvt)
+				{
+					conGame.drawImage(this.tabOffScreenCanvas[(this.orientation*this.xlength) + this.cpt],player.x,player.y-this.height/2);
+					player.y -= player.speed;
+				}
+				else player.idle = true;
+				break;
+			case 1:
+				if(player.x > player.xSvt)
+				{
+					conGame.drawImage(this.tabOffScreenCanvas[(this.orientation*this.xlength) + this.cpt],x,y-this.height/2);
+					player.x -= player.speed;
+				}
+				else player.idle = true;
+				break;
+			case 2:
+				if(player.y < player.ySvt)
+				{
+					conGame.drawImage(this.tabOffScreenCanvas[(this.orientation*this.xlength) + this.cpt],x,y-this.height/2);
+					player.y += player.speed;
+				}
+				else player.idle = true;
+				break;
+			case 3:
+				if(player.x < player.xSvt)
+				{
+					conGame.drawImage(this.tabOffScreenCanvas[(this.orientation*this.xlength) + this.cpt],x,y-this.height/2);
+					player.x += player.speed;
+				}
+				else player.idle = true;
+				break;
+		}
+		
+	}*/
+	//console.log(this);
+	
+	
+	var audio = new Audio('audio_file.mp3');
+	audio.play();
+	document.getElementById('yourAudioTag').play();
